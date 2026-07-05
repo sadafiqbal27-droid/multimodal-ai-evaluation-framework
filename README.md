@@ -13,41 +13,299 @@ As generative AI models become increasingly capable of producing images, documen
 This project aims to provide a modular, explainable, and extensible evaluation framework that combines structured evaluation criteria with human-in-the-loop assessment. Rather than producing only numerical scores, the framework is designed to generate transparent evaluation reports, justify ranking decisions, and support consistent comparison across multiple AI models and multiple task types.
 
 The long-term vision is to evolve this project into a production-style evaluation platform supporting multiple AI providers, structured evaluation workflows, explainable reporting, benchmark datasets, and future API integrations.
-## Project Goal
 
-This project aims to automate the evaluation of LLM-generated responses using structured scoring criteria inspired by real-world AI evaluation workflows.
+## The Problem
 
-## Planned Features
+The rapid advancement of multimodal AI has significantly increased the quality and diversity of AI-generated content. Modern models can generate realistic images, infographics, advertisements, diagrams, document layouts, and many other forms of visual content from natural language prompts. However, evaluating these outputs consistently remains a complex challenge.
 
-- Instruction Following Evaluation
-- Reasoning Quality Assessment
-- Hallucination Detection
-- Safety Evaluation
-- Rubric-Based Scoring
-- Overall Quality Score
-- JSON Report Generation
-- Streamlit Dashboard
+Current evaluation workflows often rely on manual review, subjective judgment, or isolated quality metrics. Different evaluators may reach different conclusions for the same outputs, while numerical scores alone rarely explain why one result is preferred over another. As the number of AI models, evaluation tasks, and generated outputs continues to grow, maintaining consistency, transparency, and reproducibility becomes increasingly difficult.
 
-## Technology Stack
+Organizations also require evaluation processes that extend beyond simple scoring. They need structured assessment criteria, explainable ranking decisions, reusable evaluation datasets, and standardized workflows that enable fair comparison across multiple AI models and multiple task types.
 
-- Python
-- JSON
+These challenges highlight the need for a modular evaluation framework capable of supporting human-in-the-loop assessment while producing transparent, explainable, and reusable evaluation results.
 
-## Future Enhancements
+## Key Features
 
-- OpenAI API integration
-- FastAPI REST API
-- Unit testing with pytest
-- Docker support
-- CI/CD with GitHub Actions
+The Multimodal AI Evaluation Framework is designed around a modular architecture that allows individual components to evolve independently while maintaining a consistent evaluation workflow.
 
-## Project Status
+Current and planned capabilities include:
 
-🚧 Under Development
-## Why This Project Exists
+### Evaluation Management
+- Structured prompt-driven evaluation workflow
+- Human-in-the-loop assessment
+- Pairwise output comparison
+- Explainable evaluation reports
+- Modular evaluation pipeline
 
-Modern organizations increasingly rely on multimodal AI systems to generate images, visual content, documents, advertisements, diagrams, and other creative assets. As the number of AI models and generated outputs continues to grow, evaluating their quality becomes more challenging.
+### Supported Evaluation Tasks
+- Generic Image Evaluation
+- Infographic Evaluation
+- Product Advertisement Evaluation
+- Prompt Iteration Evaluation
+- Style Transfer Evaluation
+- Image Editing Evaluation
+- Document & Visual Content Evaluation (Planned)
 
-Existing evaluation approaches are often manual, inconsistent, difficult to reproduce, and heavily dependent on individual reviewer experience. Automated metrics alone frequently fail to measure prompt adherence, user intent satisfaction, visual realism, or subtle AI-generated artifacts.
+### Evaluation Modules
+- Prompt Adherence Assessment
+- Reference Alignment
+- Image Consistency Analysis
+- Visual Quality Assessment
+- AI Artifact Detection
+- User Intent Satisfaction
+- Overall Decision & Ranking
+- Justification Generation
 
-This framework is designed to support structured, explainable, and reusable AI evaluation workflows. By combining modular software architecture with human-in-the-loop assessment, it aims to improve evaluation consistency, facilitate model comparison, and generate transparent reports that help explain how and why evaluation decisions are made.
+### Multi-Model Support (Planned)
+- OpenAI Models
+- Google Gemini
+- Anthropic Claude
+- Microsoft Copilot
+- Future Multimodal Models
+
+### Reporting
+- Structured evaluation summaries
+- Pairwise comparison reports
+- JSON export
+- Markdown reports
+- PDF reports (Planned)
+
+### Extensibility
+- Modular component architecture
+- Reusable evaluation criteria
+- Pluggable AI model connectors
+- Support for future evaluation tasks
+
+## System Architecture
+
+The framework follows a modular architecture in which each component has a well-defined responsibility. This separation of concerns improves maintainability, extensibility, and allows new evaluation tasks or AI models to be integrated without redesigning the overall system.
+
+```text
+                           User
+                             │
+                             ▼
+                    CLI / Future Web UI
+                             │
+                             ▼
+                     Task Management Layer
+                             │
+                             ▼
+                    Prompt Management Layer
+                             │
+                             ▼
+                  AI Model Connector Layer
+       ┌──────────────┬──────────────┬──────────────┐
+       ▼              ▼              ▼              ▼
+   OpenAI         Gemini         Claude       Future Models
+       └──────────────┴──────────────┴──────────────┘
+                             │
+                             ▼
+                 Evaluation Criteria Engine
+                             │
+                             ▼
+                    Evaluation Engine
+        ┌─────────────┬─────────────┬─────────────┐
+        ▼             ▼             ▼             ▼
+ Instruction      Consistency     Quality     AI Issues
+ Following
+        └─────────────┴─────────────┴─────────────┘
+                             │
+                             ▼
+                    Decision Engine
+                             │
+                             ▼
+                    Report Generator
+                             │
+                             ▼
+          JSON │ Markdown │ PDF │ Dashboard (Future)
+```
+
+## Evaluation Workflow
+
+The framework follows a structured evaluation workflow designed to ensure consistency, transparency, and explainability throughout the evaluation lifecycle.
+
+```text
+User Prompt
+      │
+      ▼
+Select Evaluation Task
+      │
+      ▼
+Generate / Load Evaluation Criteria
+      │
+      ▼
+Generate or Upload AI Outputs
+      │
+      ▼
+Evaluate Individual Outputs
+      │
+      ▼
+Pairwise Comparison
+      │
+      ▼
+Decision & Justification
+      │
+      ▼
+Generate Evaluation Report
+      │
+      ▼
+Save Results
+```
+
+Each stage in the workflow is modular and can be extended independently. This allows new evaluation tasks, scoring methodologies, AI models, and reporting formats to be incorporated without affecting the overall architecture.
+
+## Supported Evaluation Tasks
+
+The framework is designed to support multiple types of multimodal evaluation tasks. Each task type may require different criteria, scoring priorities, and reporting logic.
+
+### 1. Generic Image Evaluation
+
+Evaluates whether an AI-generated image follows a natural language prompt and satisfies the user's visual intent.
+
+Example:
+
+```text
+Create a realistic green field with horses and black clouds.
+
+```
+
+### 2. Infographic Evaluation
+
+Evaluates AI-generated infographics, technical diagrams, educational visuals, architectural drawings, engineering blueprints, workflow charts, timelines, comparison tables, and data visualization graphics.
+
+Focus areas include:
+
+- Information accuracy
+- Layout and visual hierarchy
+- Text readability
+- Label placement
+- Diagram consistency
+- Technical correctness
+- User comprehension
+
+### 3. Product Advertisement Evaluation
+
+Evaluates AI-generated commercial advertisements, promotional banners, social media creatives, marketing posters, product photography, and brand campaigns.
+
+Focus areas include:
+
+- Prompt adherence
+- Product presentation
+- Brand visibility
+- Commercial appeal
+- Marketing effectiveness
+- Visual quality
+- Text and logo clarity
+
+### 4. Prompt Iteration Evaluation
+
+Compares outputs generated from different versions of a prompt to determine whether prompt refinement improves the final result.
+
+Focus areas include:
+
+- Improvement over previous prompt
+- Better prompt adherence
+- Better composition
+- Better visual quality
+- Reduction of AI artifacts
+- User intent satisfaction
+
+### 5. Style Transfer Evaluation
+
+Evaluates whether the requested artistic or visual style is successfully applied while preserving the important characteristics of the original subject.
+
+Examples include:
+
+- Anime → Realistic
+- Realistic → Oil Painting
+- Sketch → Photorealistic
+- Pixar Style
+- Ghibli Style
+- Watercolor
+- Cyberpunk
+
+### 6. Image Editing Evaluation
+
+Evaluates AI-assisted image editing tasks where an existing image is modified instead of generated from scratch.
+
+Examples include:
+
+- Clothing replacement
+- Background replacement
+- Object insertion or removal
+- Face preservation
+- Lighting adjustment
+- Color correction
+- Image restoration
+- Inpainting
+- Outpainting
+
+## Evaluation Modules
+
+Each evaluation task is assessed using one or more reusable evaluation modules. Different tasks may use different combinations of these modules depending on the evaluation objective.
+
+### Prompt Adherence
+
+Evaluates how accurately the AI output follows the user's instructions, including explicit requirements, implicit expectations, and overall intent.
+
+### Reference Alignment
+
+Measures how closely the generated output matches one or more reference images while preserving important visual characteristics.
+
+### Image Consistency
+
+Evaluates consistency in objects, proportions, colors, composition, perspective, lighting, and overall scene coherence.
+
+### Visual Quality
+
+Assesses image sharpness, realism, texture quality, lighting, contrast, readability, composition, and overall visual appeal.
+
+### AI Artifact Detection
+
+Identifies common AI-generated issues such as distorted anatomy, malformed objects, blended regions, duplicated elements, unrealistic textures, inconsistent shadows, or text generation errors.
+
+### User Intent Satisfaction
+
+Determines whether the final output successfully satisfies the user's original objective, even when the prompt contains implicit expectations.
+
+### Pairwise Comparison
+
+Compares two or more AI outputs using consistent evaluation criteria to determine which completion better satisfies the evaluation objective.
+
+### Decision & Justification
+
+Generates a transparent explanation describing why one output is preferred over another, highlighting strengths, weaknesses, trade-offs, and overall ranking justification.
+
+## Installation
+
+### Prerequisites
+
+Before running the framework, ensure the following software is installed:
+
+- Python 3.11 or later
+- Git
+- Visual Studio Code (recommended)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/sadafiqbal27-droid/llm-evaluation-framework.git
+```
+
+### Navigate to the Project Directory
+
+```bash
+cd llm-evaluation-framework
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run the Framework
+
+```bash
+python main.py
+```
