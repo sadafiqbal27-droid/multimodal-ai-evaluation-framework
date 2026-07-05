@@ -9,6 +9,7 @@ from core.cli import (
     display_header,
     display_menu,
     get_user_choice,
+    collect_evaluation_inputs,
 )
 
 from core.task_manager import get_task_name
@@ -26,6 +27,11 @@ def main():
         else:
             print(f"\nSelected Task: {task_name}")
             break
+
+    evaluation_inputs = collect_evaluation_inputs()
+
+    print("\nEvaluation input collected successfully.")
+    print(evaluation_inputs)
 
     print("\nThank you for using MAEF.")
 

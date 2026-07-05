@@ -23,3 +23,19 @@ def get_user_choice():
 
     choice = input("\nEnter your choice: ")
     return choice
+
+
+def collect_evaluation_inputs():
+    """Collect evaluation details from the user."""
+
+    print("\nPlease enter the evaluation details.\n")
+
+    original_prompt = input("Original prompt: ")
+    image_a_description = input("Image A description: ")
+    image_b_description = input("Image B description: ")
+
+    return {
+        "original_prompt": original_prompt,
+        "image_a_description": image_a_description,
+        "image_b_description": image_b_description,
+    }
